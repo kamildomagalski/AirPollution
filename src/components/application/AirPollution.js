@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Header from "./Header";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
 function AirPollution() {
  return (
   <>
-  
+   <CssBaseline/>
+  <Header/>
   </>
  );
 }
