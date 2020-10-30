@@ -7,7 +7,7 @@ function Header() {
   return (
     <>
       <CssBaseline/>
-      <AppBar>
+      <AppBar position={"relative"}>
         <Container maxWidth={'md'}>
         <Toolbar>
           <IconButton edge={'start'} aria-label={'menu'}>
