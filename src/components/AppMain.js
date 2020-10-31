@@ -14,6 +14,8 @@ function AppMain() {
     }
   }))
   const classes=useStyles();
+  
+  const API= process.env.REACT_APP_API_KEY
  return (
   <Box>
     <Container maxWidth={'md'} spacing={3}>
