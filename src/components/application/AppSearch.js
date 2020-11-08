@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {Box, Button, Container, FormControl, Grid, Paper, InputLabel, Select, MenuItem} from "@material-ui/core";
-import citiesDb from '../db/cities.json'
+import citiesDb from '../../db/cities.json'
 import {makeStyles} from "@material-ui/core/styles";
 
 
-function AppMain() {
+function AppSearch() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       color: 'darkblue',
@@ -14,25 +14,24 @@ function AppMain() {
     gridItem: {
       margin: '30px 0'
     },
-    formControl:{
+    formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
     }
   }))
+  
   const classes = useStyles();
-  const [cities]= useState(citiesDb);
+  const [cities] = useState(citiesDb);
   const [request, setRequest] = useState({
-    location: '',
-    
+    name: '',
   })
-  console.log(cities);
-  const [city, setCity] = useState('')
+  
   const API = process.env.REACT_APP_API_KEY
   const getData = () => {
     fetch(
-      // 'https://airapi.airly.eu/v2/installations/nearest?lat=50.062006&lng=19.940984&maxDistanceKM=5&maxResults=3',
+      `https://airapi.airly.eu/v2/installations/nearest?lat=${request.lat}&lng=${request.lng}&maxDistanceKM=10&maxResults=10`,
       // 'https://airapi.airly.eu/v2/installations/8077',
-      'https://airapi.airly.eu/v2/measurements/installation?installationId=8077',
+      // 'https://airapi.airly.eu/v2/measurements/installation?installationId=8077',
       {
         method: 'GET',
         headers: {
@@ -46,9 +45,15 @@ function AppMain() {
         console.log(data);
       })
   }
-  
+
   const handleChange = (event) => {
-    setCity(event.target.value)
+    cities.forEach(el => {
+        if (el.name === event.target.value) {
+          setRequest(el);
+        }
+        return el
+      })
+    
   }
   return (
     <Box>
@@ -58,35 +63,35 @@ function AppMain() {
             <Paper className={classes.paper}>Check air quality in your area!</Paper>
           </Grid>
           
-            <Grid item xs={4}/>
-            <Grid item xs={4} spacing={2} container justify={"center"} alignItems={'center'} direction={"row"}>
-              <Grid item>
+          <Grid item xs={4}/>
+          <Grid item xs={4} spacing={2} container justify={"center"} alignItems={'center'} direction={"row"}>
+            <Grid item>
               <FormControl className={classes.formControl}>
                 <InputLabel id={'city-label'}>City</InputLabel>
                 <Select
                   labelId={'city-label'}
                   id={'city'}
-                  value={city}
+                  value={request.name}
                   onChange={handleChange}
                 >
                   <MenuItem value={''}><em>None</em></MenuItem>
-                  {cities.map(el=>{
+                  {cities.map(el => {
                     return <MenuItem key={el.id} value={el.name}>{el.name}</MenuItem>
                   })}
                 </Select>
               </FormControl>
-              </Grid>
-              <Grid item>
-                <Button variant={"contained"} color={"primary"}>Find station!</Button>
-              </Grid>
-              
             </Grid>
-            <Grid item xs={4}/>
-      
+            <Grid item>
+              <Button variant={"contained"} color={"primary"} onClick={getData}>Find station!</Button>
+            </Grid>
+          
+          </Grid>
+          <Grid item xs={4}/>
+        
         </Grid>
       </Container>
     </Box>
   );
 }
 
-export default AppMain;
+export default AppSearch;
