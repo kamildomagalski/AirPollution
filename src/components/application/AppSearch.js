@@ -25,6 +25,7 @@ function AppSearch() {
   const [request, setRequest] = useState({
     name: '',
   })
+  const [results, setResults] = useState(null)
   
   const API = process.env.REACT_APP_API_KEY
   const getData = () => {
@@ -42,7 +43,7 @@ function AppSearch() {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        setResults(data);
       })
   }
 
@@ -63,8 +64,8 @@ function AppSearch() {
             <Paper className={classes.paper}>Check air quality in your area!</Paper>
           </Grid>
           
-          <Grid item xs={4}/>
-          <Grid item xs={4} spacing={2} container justify={"center"} alignItems={'center'} direction={"row"}>
+          <Grid item xs={3}/>
+          <Grid item xs={6} spacing={2} container justify={"center"} alignItems={'center'} direction={"row"}>
             <Grid item>
               <FormControl className={classes.formControl}>
                 <InputLabel id={'city-label'}>City</InputLabel>
@@ -86,7 +87,9 @@ function AppSearch() {
             </Grid>
           
           </Grid>
-          <Grid item xs={4}/>
+          <Grid item xs={3}/>
+        </Grid>
+        <Grid container spacing={3}>
         
         </Grid>
       </Container>
