@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Box, Button, Container, FormControl, Grid, Paper, InputLabel, Select, MenuItem} from "@material-ui/core";
 import citiesDb from '../../db/cities.json'
 import {makeStyles} from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
+import {SearchContext} from "../session/context";
 
 function AppSearch() {
   const useStyles = makeStyles((theme) => ({
@@ -19,43 +20,16 @@ function AppSearch() {
       minWidth: 120,
     }
   }))
-  
+  const {cities, request, handleSearchCity, getData}= useContext(SearchContext)
   const classes = useStyles();
-  const [cities] = useState(citiesDb);
-  const [request, setRequest] = useState({
-    name: '',
-  })
-  const [results, setResults] = useState(null)
-  
-  const API = process.env.REACT_APP_API_KEY
-  const getData = () => {
-    fetch(
-      `https://airapi.airly.eu/v2/installations/nearest?lat=${request.lat}&lng=${request.lng}&maxDistanceKM=10&maxResults=10`,
-      // 'https://airapi.airly.eu/v2/installations/8077',
-      // 'https://airapi.airly.eu/v2/measurements/installation?installationId=8077',
-      {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          'Accept-Encoding': 'gzip',
-          "apikey": API
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        setResults(data);
-      })
+
+  const handleSubmit=()=>{
+  getData();
+  }
+  const handleChange=(event)=>{
+    handleSearchCity(event.target.value)
   }
 
-  const handleChange = (event) => {
-    cities.forEach(el => {
-        if (el.name === event.target.value) {
-          setRequest(el);
-        }
-        return el
-      })
-    
-  }
   return (
     <Box>
       <Container maxWidth={'md'} spacing={3}>
@@ -83,7 +57,7 @@ function AppSearch() {
               </FormControl>
             </Grid>
             <Grid item>
-              <Button variant={"contained"} color={"primary"} onClick={getData} component={RouterLink} to={"/results"}>Find station!</Button>
+              <Button variant={"contained"} color={"primary"} onClick={handleSubmit} component={RouterLink} to={"/results"}>Find station!</Button>
             </Grid>
           
           </Grid>
