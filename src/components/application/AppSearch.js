@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Box, Button, Container, FormControl, Grid, Paper, InputLabel, Select, MenuItem} from "@material-ui/core";
 import citiesDb from '../../db/cities.json'
 import {makeStyles} from "@material-ui/core/styles";
-
+import { Link as RouterLink } from "react-router-dom";
 
 function AppSearch() {
   const useStyles = makeStyles((theme) => ({
@@ -83,7 +83,7 @@ function AppSearch() {
               </FormControl>
             </Grid>
             <Grid item>
-              <Button variant={"contained"} color={"primary"} onClick={getData}>Find station!</Button>
+              <Button variant={"contained"} color={"primary"} onClick={getData} component={RouterLink} to={"/results"}>Find station!</Button>
             </Grid>
           
           </Grid>

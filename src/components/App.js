@@ -1,10 +1,13 @@
 import React from "react";
 import AirPollution from "./application/AirPollution";
+import {BrowserRouter as Router} from "react-router-dom";
 
 function App() {
   return (
     <>
-      <AirPollution/>
+      <Router>
+        <AirPollution/>
+      </Router>
     </>
   );
 }

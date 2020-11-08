@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function CityResult() {
  return (
   <div>
-  wyniki szukania
+   <h1> search results</h1>
   </div>
  );
 }
