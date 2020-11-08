@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Container, FormControl, Grid, Paper, InputLabel, Select, MenuItem} from "@material-ui/core";
-
+import citiesDb from '../db/cities.json'
 import {makeStyles} from "@material-ui/core/styles";
 
 
@@ -13,13 +13,19 @@ function AppMain() {
     },
     gridItem: {
       margin: '30px 0'
+    },
+    formControl:{
+      margin: theme.spacing(1),
+      minWidth: 120,
     }
   }))
   const classes = useStyles();
+  const [cities]= useState(citiesDb);
   const [request, setRequest] = useState({
     location: '',
     
   })
+  console.log(cities);
   const [city, setCity] = useState('')
   const API = process.env.REACT_APP_API_KEY
   const getData = () => {
@@ -55,7 +61,7 @@ function AppMain() {
             <Grid item xs={4}/>
             <Grid item xs={4} spacing={2} container justify={"center"} alignItems={'center'} direction={"row"}>
               <Grid item>
-              <FormControl>
+              <FormControl className={classes.formControl}>
                 <InputLabel id={'city-label'}>City</InputLabel>
                 <Select
                   labelId={'city-label'}
@@ -64,14 +70,14 @@ function AppMain() {
                   onChange={handleChange}
                 >
                   <MenuItem value={''}><em>None</em></MenuItem>
-                  <MenuItem value={'Kraków'}>Kraków</MenuItem>
-                  <MenuItem value={'Warszawa'}>Warszawa</MenuItem>
-                  <MenuItem value={'Gdańsk'}>Gdańsk</MenuItem>
+                  {cities.map(el=>{
+                    return <MenuItem key={el.id} value={el.name}>{el.name}</MenuItem>
+                  })}
                 </Select>
               </FormControl>
               </Grid>
               <Grid item>
-                <Button variant={"contained"} color={"primary"}>Get data!</Button>
+                <Button variant={"contained"} color={"primary"}>Find station!</Button>
               </Grid>
               
             </Grid>
