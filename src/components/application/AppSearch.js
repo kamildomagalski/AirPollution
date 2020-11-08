@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import {Box, Button, Container, FormControl, Grid, Paper, InputLabel, Select, MenuItem} from "@material-ui/core";
 import citiesDb from '../../db/cities.json'
 import {makeStyles} from "@material-ui/core/styles";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import {SearchContext} from "../session/context";
 
 function AppSearch() {
@@ -20,16 +20,16 @@ function AppSearch() {
       minWidth: 120,
     }
   }))
-  const {cities, request, handleSearchCity, getData}= useContext(SearchContext)
+  const {cities, request, handleSearchCity, getData} = useContext(SearchContext)
   const classes = useStyles();
-
-  const handleSubmit=()=>{
-  getData();
+  
+  const handleSubmit = () => {
+    getData();
   }
-  const handleChange=(event)=>{
+  const handleChange = (event) => {
     handleSearchCity(event.target.value)
   }
-
+  
   return (
     <Box>
       <Container maxWidth={'md'} spacing={3}>
@@ -57,7 +57,8 @@ function AppSearch() {
               </FormControl>
             </Grid>
             <Grid item>
-              <Button variant={"contained"} color={"primary"} onClick={handleSubmit} component={RouterLink} to={"/results"}>Find station!</Button>
+              <Button variant={"contained"} color={"primary"} onClick={handleSubmit} component={RouterLink}
+                      to={"/results"}>Find station!</Button>
             </Grid>
           
           </Grid>

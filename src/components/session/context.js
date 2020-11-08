@@ -1,9 +1,9 @@
-import React, { useState, createContext } from "react";
+import React, {useState, createContext} from "react";
 import citiesDb from "../../db/cities.json";
 
-const SearchContext= createContext(null);
+const SearchContext = createContext(null);
 
-function AirlyDataProvider(props){
+function AirlyDataProvider(props) {
   const [results, setResults] = useState(null)
   const [cities] = useState(citiesDb);
   const [request, setRequest] = useState({
@@ -19,7 +19,7 @@ function AirlyDataProvider(props){
     })
     
   }
-  console.log(results + ' context');
+  
   const API = process.env.REACT_APP_API_KEY
   
   const getData = () => {
@@ -47,4 +47,4 @@ function AirlyDataProvider(props){
   )
 }
 
-export { SearchContext, AirlyDataProvider }
+export {SearchContext, AirlyDataProvider}

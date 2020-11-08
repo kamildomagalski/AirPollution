@@ -1,22 +1,23 @@
 import React, {useContext} from 'react';
 import {SearchContext} from "../session/context";
+import CityCard from "./CityCard";
+import {Grid} from '@material-ui/core'
 
 function CityResult() {
-  const {results}=useContext(SearchContext);
+  const {results} = useContext(SearchContext);
   
-  console.log(results);
+  
   return (
-  <div>
-    {results? results.map((el, i)=>{
-      return (
-        <div key={i}>
-        <h1>{el.address.city}</h1>
-        <p>{el.address.street}</p>
-        </div>
-      )
-    }): null }
-   <h1> search results</h1>
-  </div>
- );
+    <Grid container spacing={3}>
+      
+      {results ? results.map((el, i) => {
+        return (
+          <CityCard key={el.id} info={el}/>
+        )
+      }) : null}
+      
+    </Grid>
+  );
 }
+
 export default CityResult;
