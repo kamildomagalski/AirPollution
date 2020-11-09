@@ -24,7 +24,7 @@ function AirlyDataProvider(props) {
   
   const getData = () => {
     fetch(
-      `https://airapi.airly.eu/v2/installations/nearest?lat=${request.lat}&lng=${request.lng}&maxDistanceKM=10&maxResults=10`,
+      `https://airapi.airly.eu/v2/installations/nearest?lat=${request.lat}&lng=${request.lng}&maxDistanceKM=10&maxResults=8`,
       // 'https://airapi.airly.eu/v2/installations/8077',
       // 'https://airapi.airly.eu/v2/measurements/installation?installationId=8077',
       {

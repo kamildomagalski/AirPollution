@@ -9,10 +9,12 @@ function CityResult() {
   
   return (
     <Grid container spacing={3}>
-      
+      <Grid item xs={12}/>
       {results ? results.map((el, i) => {
         return (
-          <CityCard key={el.id} info={el}/>
+          <Grid item xs={3}>
+            <CityCard key={el.id} info={el}/>
+          </Grid>
         )
       }) : null}
       
